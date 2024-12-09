@@ -125,37 +125,4 @@ class NetworkPlotter:
         
         ax.set_xticks([])
         ax.set_yticks([])
-        
-    
-        
-if __name__ == '__main__':
-    
-    # Network init
-    n = NeuralNetwork(input_dim=10)
-    n.add(Layer(size=8, input_dim=10))
-    
-    n.add(Layer(size=4, input_dim=8))
-    n.random_init()
-    
-    # Forward pass
-    input_values = np.random.uniform(-1,1,n.input_dim)
-    output_values, selection, node_values, edge_values = n.forward_pass_debug(input_values)
-    print(f'{input_values}\n{output_values}')
-    
-    # Plotting structure
-    plotter = NetworkPlotter(n)
-    fig, ax = plt.subplots(figsize=(8,8))
-    plotter.pyplot_structure(
-        ax, node_size=300, font_size=10, font_offset=[0.04, 0.48])
-    plt.show()
-    
-    # Plotting forward pass
-    plotter = NetworkPlotter(n)
-    fig, ax = plt.subplots(figsize=(8,8))
-    plotter.pyplot_forward_pass(
-        ax, node_values, edge_values, node_size=300, font_size=10, 
-        font_offset=[0.04, 0.48])
-    plt.show()
-    
-
-        
+        ax.set_axis("off")
