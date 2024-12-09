@@ -7,7 +7,7 @@ setup(
         "algorithms"
     ],
     package_dir={
-        "genalg":"src/algorithms"
+        "algorithms":"src/algorithms"
     },
     include_package_data=False,
 )
