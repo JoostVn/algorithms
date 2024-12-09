@@ -68,12 +68,6 @@ class GeneticAlgorithm:
         if self.disaster is not None:
             self.disaster.set_population(genomes, fitness)
 
-
-        # NEW: REMOVED MUTATION FUNC, SET EXTERNALLY
-        #for mutation in self.mutations:
-        #    mutation.update_p(fitness)
-
-
         # Extract elites
         if self.num_elites > 0:
             elite_indices = np.argsort(fitness)[-self.num_elites:]

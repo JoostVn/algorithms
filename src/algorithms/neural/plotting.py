@@ -2,7 +2,7 @@ import numpy
 from matplotlib import pyplot as plt
 import numpy as np
 from matplotlib.colors import to_rgb
-from .neural_network import Layer, NeuralNetwork
+from .nn import Layer, NeuralNetwork
 
 class NetworkPlotter:
     
@@ -71,8 +71,8 @@ class NetworkPlotter:
         text_str = values.round(2).astype(str)
         return text_pos, text_str
 
-    def pyplot_structure(self, ax, node_size=800, font_size=12, 
-                         font_offset=[0.08,0.35]):
+    def pyplot_structure(
+            self, ax, node_size=800, font_size=12, font_offset=(0,0)):
         """
         Matplotlib plot of network structure.
         """
@@ -87,12 +87,14 @@ class NetworkPlotter:
         # Layer edges
         cols = self.rgba_picker(self.edge_weights)
         for connection, col in zip(self.edge_coords, cols):
-            ax.plot(*connection, color=col, zorder=5)
+            ax.plot(*connection, color=col, zorder=5, linewidth=0.5)
         
         # Node bias text
         text_pos, text_str = self.get_text(layers, self.node_biases, font_offset)
         annotate = np.vectorize(ax.text)
-        annotate(*text_pos, text_str, fontsize=font_size)
+        annotate(
+            *text_pos, text_str, fontsize=font_size, zorder=100, ha="center",
+            va="center")
         
         ax.set_xticks([])
         ax.set_yticks([])

@@ -7,6 +7,12 @@ from matplotlib.colors import to_rgb
 class Layer:
     
     def __init__(self, size, input_dim, activation_func=np.tanh):
+        """
+        On neural network layer. 
+        
+        Contains a column of nodes and weights for connections to the previous 
+        layer.
+        """
         self.size = size
         self.input_dim = input_dim
         self.biases = np.zeros(size)
@@ -16,7 +22,8 @@ class Layer:
     def __repr__(self):
         return f'\nBiases\n{self.biases}\n\nWeights\n{self.weights}\n'
 
-    def __len__(self):
+    @property
+    def genome_size(self):
         return len(self.get_genome())
 
     def random_init(self):
@@ -70,16 +77,16 @@ class NeuralNetwork:
     
     def __init__(self, input_dim):
         self.input_dim = input_dim
-        self.genome_size = input_dim
         self.layers = []
 
-    def __len__(self):
+    @property
+    def genome_size(self):
         """
         Return the total lenght of the neural network genome.
         """
-        return len(self.get_genome())
+        return sum([layer.genome_size for layer in self.layers])
 
-    def add(self, layer):
+    def add_layer(self, layer):
         """
         Add one layer to the end of the network. Also updates weights/biases.
         """
@@ -137,5 +144,5 @@ class NeuralNetwork:
         (l1_biases, l1_weights, ..., ln_biases, ln_weights)
         """
         for layer in self.layers:
-            layer.set_genome(genome[:len(layer)])
-            genome = genome[len(layer):]
+            layer.set_genome(genome[:layer.genome_size])
+            genome = genome[layer.genome_size:]
