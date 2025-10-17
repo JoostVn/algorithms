@@ -82,7 +82,7 @@ class NetworkPlotter:
         layers = self.node_coords.T[self.n.input_dim:].T
         cols = self.rgba_picker(self.node_biases)
         ax.scatter(*layers, s=node_size, c='white', zorder=10)
-        ax.scatter(*layers, s=node_size, c=cols, zorder=20)
+        ax.scatter(*layers, s=node_size, c=cols, edgecolors='grey', linewidths=0.5, zorder=20)
         
         # Layer edges
         cols = self.rgba_picker(self.edge_weights)
@@ -98,6 +98,7 @@ class NetworkPlotter:
         
         ax.set_xticks([])
         ax.set_yticks([])
+        ax.axis('off')
         
     def pyplot_forward_pass(self, ax, node_values, edge_values, node_size=800, 
                             font_size=12, font_offset=[0.08,0.35]):
@@ -125,4 +126,4 @@ class NetworkPlotter:
         
         ax.set_xticks([])
         ax.set_yticks([])
-        ax.set_axis("off")
+        ax.axis('off')
