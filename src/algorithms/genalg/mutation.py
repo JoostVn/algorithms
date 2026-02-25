@@ -109,6 +109,26 @@ class Thrors(Mutation):
                 new_genome[j] = genome[i]
             
         return new_genome
+     
+
+class RSM(Mutation):
+
+     def __init__(self, p, genome_domain=(-1,1)):
+        super().__init__(p, genome_domain)
+
+     def mutate_genome(self, genome):
+        """
+        https://arxiv.org/ftp/arxiv/papers/1203/1203.3099.pdf
+        """
+        new_genome = genome.copy()
+        n = new_genome.shape[0]
+
+        if np.random.uniform() < self.p:
+            i = np.random.randint(0, n + 1)
+            j = np.random.randint(i, n + 1)
+            new_genome[i:j] = np.flip(new_genome[i:j])
+            
+        return new_genome
       
 
 
