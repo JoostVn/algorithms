@@ -13,6 +13,7 @@ dependencies = [
     "ipywidgets>=8.1",
     "matplotlib>=3.9.3",
     "numba>=0.64.0",
+    "pygame>=2.6.1",
     "tqdm>=4.67",
 ]
 
