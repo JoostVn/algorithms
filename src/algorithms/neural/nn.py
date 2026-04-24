@@ -39,6 +39,13 @@ class Layer:
         Pass input_values trough layer and return node activations.
         """
         return self.activation_func(self.weights.dot(input_values) + self.biases)
+
+    def fire_batch(self, input_values):
+        """
+        Pass a batch of input_values through the layer and return node activations.
+        input_values: (N, input_dim) -> output: (N, size)
+        """
+        return self.activation_func(input_values @ self.weights.T + self.biases)
     
     def fire_only_weights(self, input_values):
         """
@@ -108,6 +115,15 @@ class NeuralNetwork:
             input_values = output_values
         selection = np.argmax(output_values)
         return output_values, selection
+
+    def forward_pass_batch(self, input_values):
+        """
+        Forward pass for a batch of inputs.
+        input_values: (N, input_dim) -> returns (N, output_dim), (N,) selections
+        """
+        for layer in self.layers:
+            input_values = layer.fire_batch(input_values)
+        return input_values, np.argmax(input_values, axis=1)
 
     def forward_pass_debug(self, input_values):
         """
